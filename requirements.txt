@@ -1,0 +1,15 @@
+# Sphinx и расширения для ReadTheDocs
+sphinx>=5.0.0
+sphinx-rtd-theme>=1.2.0
+breathe>=4.34.0
+
+# MkDocs (опционально)
+mkdocs
+mkdocs-material
+mkdocs-static-i18n
+mkdocstrings[python,cfamily]
+
+# Примечание: Doxygen должен быть установлен отдельно как системный пакет
+# Windows: https://www.doxygen.nl/download.html
+# Linux: sudo apt-get install doxygen
+# macOS: brew install doxygen

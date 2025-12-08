@@ -1,0 +1,26 @@
+site_name: Multi-language Docs
+theme:
+  name: material
+  language: ru
+  features:
+    - navigation.instant
+    - i18n
+
+plugins:
+  - search
+  - i18n:
+      default_language: ru
+      languages:
+        en: English
+        ru: Русский
+  - mkdocstrings:
+      handlers:
+        cfamily:
+          import:
+            - build/xml
+
+
+nav:
+  - Home: index.md
+  - API:
+      - C++: api/cpp.md

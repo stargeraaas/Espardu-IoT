@@ -1,0 +1,46 @@
+# ReadTheDocs конфигурация для Espardu-IoT
+# Документация: https://docs.readthedocs.io/en/stable/config-file/v2.html
+
+version: 2
+
+# Установка ОС и инструментов
+build:
+  os: ubuntu-22.04
+  tools:
+    python: "3.11"
+  
+  # Команды для сборки документации
+  commands:
+    # Обновление pip
+    - pip install --upgrade pip setuptools wheel
+    # Установка Python зависимостей из requirements.txt
+    - pip install -r requirements.txt
+    # Установка Doxygen и Graphviz (если не установлены)
+    - |
+      if ! command -v doxygen &> /dev/null; then
+        sudo apt-get update
+        sudo apt-get install -y doxygen graphviz
+      fi
+    # Генерация XML из C++ кода с помощью Doxygen
+    # (должно быть выполнено до сборки Sphinx)
+    - doxygen Doxyfile
+
+# Sphinx конфигурация
+sphinx:
+  configuration: docs/source/conf.py
+  builder: html
+  fail_on_warning: false
+
+# Формат документации
+formats:
+  - htmlzip
+  - pdf
+
+# Язык документации
+language: ru
+
+# Python требования
+python:
+  install:
+    - requirements: requirements.txt
+

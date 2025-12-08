@@ -1,0 +1,18 @@
+# Doxygen конфигурация для интеграции с Sphinx/Breathe
+PROJECT_NAME           = "Espardu-IoT"
+PROJECT_BRIEF          = "IoT библиотека для ESP32 с поддержкой Wi-Fi и BLE"
+OUTPUT_DIRECTORY       = build
+GENERATE_XML           = YES
+XML_OUTPUT             = xml
+GENERATE_HTML          = NO
+GENERATE_LATEX         = NO
+INPUT                  = ./src/cpp
+FILE_PATTERNS          = *.h *.cpp *.hpp
+RECURSIVE              = YES
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = YES
+MARKDOWN_SUPPORT       = YES
+AUTOLINK_SUPPORT       = YES
+GENERATE_TREEVIEW      = NO
+USE_MDFILE_AS_MAINPAGE = 
