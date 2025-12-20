@@ -25,15 +25,26 @@ echo "Python found: $PYTHON_CMD"
 $PYTHON_CMD --version
 echo ""
 
-echo "[2/5] Installing/updating dependencies..."
-$PYTHON_CMD -m pip install --upgrade pip --quiet
-$PYTHON_CMD -m pip install -r requirements.txt --quiet
-if [ $? -ne 0 ]; then
-    echo "ERROR: Failed to install dependencies"
-    exit 1
+# Check if venv exists and activate it
+if [ -d "venv" ] && [ -f "venv/bin/activate" ]; then
+    echo "[2/5] Virtual environment found. Activating..."
+    source venv/bin/activate
+    PYTHON_CMD=python
+    echo "Using virtual environment"
+    echo ""
+else
+    echo "[2/5] No virtual environment found. Installing dependencies globally..."
+    $PYTHON_CMD -m pip install --upgrade pip --quiet
+    $PYTHON_CMD -m pip install -r requirements.txt --quiet
+    if [ $? -ne 0 ]; then
+        echo "ERROR: Failed to install dependencies"
+        echo "You can create a virtual environment first:"
+        echo "  ./setup_venv.sh"
+        exit 1
+    fi
+    echo "Dependencies installed"
+    echo ""
 fi
-echo "Dependencies installed"
-echo ""
 
 echo "[3/5] Checking Doxygen..."
 if ! command -v doxygen &> /dev/null; then

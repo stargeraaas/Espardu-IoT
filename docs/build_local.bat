@@ -32,31 +32,43 @@ echo Python found: %PYTHON_CMD%
 %PYTHON_CMD% --version
 echo.
 
-echo [2/5] Installing/updating dependencies...
-echo Checking pip...
-%PYTHON_CMD% -m pip --version >nul 2>nul
-if errorlevel 1 (
-    echo WARNING: pip not found. Attempting to upgrade pip anyway...
-)
+REM Check if venv exists and activate it
+if exist "venv\Scripts\activate.bat" (
+    echo [2/5] Virtual environment found. Activating...
+    call venv\Scripts\activate.bat
+    set PYTHON_CMD=python
+    echo Using virtual environment
+    echo.
+) else (
+    echo [2/5] No virtual environment found. Installing dependencies globally...
+    echo Checking pip...
+    %PYTHON_CMD% -m pip --version >nul 2>nul
+    if errorlevel 1 (
+        echo WARNING: pip not found. Attempting to upgrade pip anyway...
+    )
 
-%PYTHON_CMD% -m pip install --upgrade pip
-if errorlevel 1 (
-    echo ERROR: pip is not available or failed to upgrade
-    echo Please ensure Python is installed with pip, or install pip manually:
-    echo   python -m ensurepip --upgrade
-    echo   OR download get-pip.py from https://pip.pypa.io/en/stable/installation/
-    pause
-    exit /b 1
-)
+    %PYTHON_CMD% -m pip install --upgrade pip
+    if errorlevel 1 (
+        echo ERROR: pip is not available or failed to upgrade
+        echo Please ensure Python is installed with pip, or install pip manually:
+        echo   python -m ensurepip --upgrade
+        echo   OR download get-pip.py from https://pip.pypa.io/en/stable/installation/
+        echo.
+        echo You can also create a virtual environment first:
+        echo   setup_venv.bat
+        pause
+        exit /b 1
+    )
 
-%PYTHON_CMD% -m pip install -r requirements.txt
-if errorlevel 1 (
-    echo ERROR: Failed to install dependencies from requirements.txt
-    pause
-    exit /b 1
+    %PYTHON_CMD% -m pip install -r requirements.txt
+    if errorlevel 1 (
+        echo ERROR: Failed to install dependencies from requirements.txt
+        pause
+        exit /b 1
+    )
+    echo Dependencies installed successfully
+    echo.
 )
-echo Dependencies installed successfully
-echo.
 
 echo [3/5] Checking Doxygen...
 where doxygen >nul 2>nul

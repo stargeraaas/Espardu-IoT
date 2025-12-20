@@ -9,6 +9,9 @@ mkdocs-material
 mkdocs-static-i18n
 mkdocstrings[python,cfamily]
 
+# PlatformIO Core для интеграции с IDE (CLion, VSCode и др.)
+platformio>=6.1.0
+
 # Примечание: Doxygen должен быть установлен отдельно как системный пакет
 # Windows: https://www.doxygen.nl/download.html
 # Linux: sudo apt-get install doxygen
